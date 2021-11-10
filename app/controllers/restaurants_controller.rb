@@ -15,7 +15,12 @@ class RestaurantsController < ApplicationController
     @restaurant = Restaurant.new(restaurant_params)
     @restaurant.save
 
-    redirect_to task_path(@task)
+    # redirect_to restaurant_path(@restaurant)
+    if @restaurant.save
+      redirect_to restaurant_path(@restaurant)
+    else
+      render :new
+    end
   end
 
   def edit
@@ -26,19 +31,19 @@ class RestaurantsController < ApplicationController
     @restaurant = Restaurant.find(params[:id])
     @restaurant.update(restaurant_params)
 
-    redirect_to :task
+    redirect_to :restaurant
   end
 
   def destroy
     @restaurant = Restaurant.find(params[:id])
     @restaurant.destroy
 
-    redirect_to :list
+    redirect_to :restaurants
   end
 
   private
 
   def restaurant_params
-    params.require(:task).permit(:title, :details, :completed)
+    params.require(:restaurant).permit(:name, :address, :phone_number, :category)
   end
 end

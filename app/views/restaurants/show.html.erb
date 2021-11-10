@@ -3,6 +3,8 @@
 <p><%= @restaurant.phone_number %></p>
 <p><%= @restaurant.category %></p>
 
+<%= link_to 'Leave a review', new_restaurant_review_path(@restaurant) %>
+
 <%= link_to "back to restaurant list", restaurants_path %>
 
 <%= link_to "edit this restaurant", edit_restaurant_path %>
@@ -11,3 +13,9 @@
             restaurant_path(@restaurant),
             method: :delete,
             data: { confirm: "Are you sure?" } %>
+
+<ul class="list-group">
+  <% @restaurant.reviews.each do |review| %>
+    <li class="list-group-item"><%= review.content %></li>
+  <% end %>
+</ul>
